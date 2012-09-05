@@ -28,6 +28,8 @@ namespace Gbd.PeriodMatching.Tests
     [TearDown]
     public void TearDown()
     {
+      _sandbox = null;
+      System.GC.Collect();
     }
 
 
@@ -90,7 +92,7 @@ namespace Gbd.PeriodMatching.Tests
 
 
     [Test]
-    [Ignore]
+    [Ignore("There is a bug in NCrunch. Using CapacityLimitsAllRange2 tests instead")]
     public void CapacityLimitsAllRange(
       [Random(0, MaxP, 10)]          int nbPeriods,
       [Random(1, MaxT, 5)]            int nbTimers,
@@ -110,6 +112,7 @@ namespace Gbd.PeriodMatching.Tests
 
     [TestCase(0, 1, 666)]
     [TestCase(0, MaxT, 666)]
+    [TestCase(MaxP, 1, 666)]
     [TestCase(MaxP, MaxT, 666)]
     public void CapacityLimitsAllRange2(int nbPeriods,int nbTimers,int periodsValue)
     {
