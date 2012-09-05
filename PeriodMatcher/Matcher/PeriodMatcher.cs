@@ -24,13 +24,9 @@ namespace Gbd.PeriodMatching.Matcher
     public void Assign(ICollection<long> periodsToMatch)
     {
 
-      throw new NotImplementedException();
-
       if (_constraintEnableTimers)
         Assert.That(_constraintMaxTimers, Is.GreaterThan(0));
 
-
-      
 
     }
 
