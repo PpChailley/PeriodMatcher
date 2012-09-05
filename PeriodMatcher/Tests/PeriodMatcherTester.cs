@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Gbd.PeriodMatching.Matcher;
 using NUnit.Framework;
 
@@ -51,7 +52,8 @@ namespace Gbd.PeriodMatching.Tests
         _sandbox.ConstraintMaxTimers = maxTimers;
       }
 
-      _sandbox.Assign(new List<long>());
+      _sandbox.PeriodsToMatch = new Collection<long>();
+      _sandbox.Assign();
     }
 
 
@@ -70,8 +72,8 @@ namespace Gbd.PeriodMatching.Tests
       [Range(1, PeriodMatcher.MaxTimersSupported)]      int maxTimers)
     {
       _sandbox.ConstraintMaxTimers = maxTimers;
-
-      _sandbox.Assign(new List<long>());
+      _sandbox.PeriodsToMatch = new Collection<long>();
+      _sandbox.Assign();
     }
 
     [Test]
@@ -81,7 +83,7 @@ namespace Gbd.PeriodMatching.Tests
     {
       _sandbox.ConstraintMaxTimers = maxTimers;
 
-      _sandbox.Assign(new List<long>());
+      _sandbox.Assign();
     }
 
 

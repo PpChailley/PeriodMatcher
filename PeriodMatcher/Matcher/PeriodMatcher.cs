@@ -7,6 +7,7 @@ namespace Gbd.PeriodMatching.Matcher
   {
 
     public const int MaxTimersSupported = 100;
+    public const int MaxPeriodsSupported = 50*1000;
 
     private int _constraintMaxTimers = 0;
     private bool _constraintEnableTimers = false;
@@ -21,10 +22,14 @@ namespace Gbd.PeriodMatching.Matcher
       }
     }
 
+    public ICollection<long> PeriodsToMatch = null;
 
-    public void Assign(ICollection<long> periodsToMatch)
+
+
+    public void Assign()
     {
       AssertStatusIsReadyForComputation();
+
 
 
     }
@@ -39,6 +44,10 @@ namespace Gbd.PeriodMatching.Matcher
         Assert.That(_constraintMaxTimers, Is.GreaterThan(0));
 
       Assert.That(_constraintMaxTimers, Is.LessThanOrEqualTo(MaxTimersSupported));
+
+      Assert.That(PeriodsToMatch, Is.Not.Null);
+      Assert.That(PeriodsToMatch, Is.Not.Empty);
+
     }
   }
 }
