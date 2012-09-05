@@ -55,9 +55,37 @@ namespace Gbd.PeriodMatching.Tests
     }
 
 
+ 
+
+
 
     #endregion
 
+
+    #region Robustness and limits
+
+
+    [Test]
+    public void ForbiddenCasesAllRange(
+      [Range(1, PeriodMatcher.MaxTimersSupported)]      int maxTimers)
+    {
+      _sandbox.ConstraintMaxTimers = maxTimers;
+
+      _sandbox.Assign(new List<long>());
+    }
+
+    [Test]
+    [ExpectedException(typeof(AssertionException))]
+    public void ForbiddenCasesRobustness(
+      [Values(int.MinValue, int.MaxValue, -1, 0, PeriodMatcher.MaxTimersSupported + 1)]      int maxTimers)
+    {
+      _sandbox.ConstraintMaxTimers = maxTimers;
+
+      _sandbox.Assign(new List<long>());
+    }
+
+
+    #endregion
 
   }
 }
