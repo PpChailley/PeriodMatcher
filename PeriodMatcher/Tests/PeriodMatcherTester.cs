@@ -129,7 +129,7 @@ namespace Gbd.PeriodMatching.Tests
     [Test]
     [ExpectedException(typeof(AssertionException))]
     public void CapacityLimitsRobustness(
-      [Values(0, 5, MaxP, MaxP+1)]                                        int nbPeriods, 
+      [Values(1, 5, MaxP, MaxP+1)]                                        int nbPeriods, 
       [Values(int.MinValue, -1, 0, 5, MaxT, MaxT+1, int.MaxValue)]        int nbTimers, 
       [Values(int.MinValue, -1, 0, 5, int.MaxValue)]                      int periodsValue)
     {

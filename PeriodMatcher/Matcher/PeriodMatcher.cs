@@ -41,11 +41,15 @@ namespace Gbd.PeriodMatching.Matcher
     private void AssertStatusIsReadyForComputation()
     {
       if (_constraintEnableTimers)
+      {
         Assert.That(_constraintMaxTimers, Is.GreaterThan(0));
-
-      Assert.That(_constraintMaxTimers, Is.LessThanOrEqualTo(MaxTimersSupported));
+        Assert.That(_constraintMaxTimers, Is.LessThanOrEqualTo(MaxTimersSupported));
+      }
 
       Assert.That(PeriodsToMatch, Is.Not.Null);
+      Assert.That(PeriodsToMatch.Count, Is.LessThanOrEqualTo(MaxPeriodsSupported));
+
+      Assert.That(PeriodsToMatch, Is.All.GreaterThanOrEqualTo(0));
 
     }
   }
