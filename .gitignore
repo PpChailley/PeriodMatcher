@@ -4,3 +4,6 @@ DesignTimeResolveAssemblyReferencesInput.cache
 PeriodMatcher.vshost.exe
 Gbd.PeriodMatcher.vshost.exe
 *.pdb
+Gbd.PeriodMatching.vshost.exe
+*.cache
+PeriodMatcher.csproj.FileListAbsolute.txt
