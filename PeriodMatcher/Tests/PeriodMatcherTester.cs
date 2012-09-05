@@ -9,9 +9,15 @@ namespace Gbd.PeriodMatching.Tests
   class PeriodMatcherTester
   {
 
+
+    private PeriodMatcher _sandbox;
+
+    #region Setup And TearDown
+
     [SetUp]
     public void Setup()
     {
+      _sandbox = new PeriodMatcher();
     }
 
 
@@ -21,6 +27,9 @@ namespace Gbd.PeriodMatching.Tests
     }
 
 
+    #endregion
+
+    #region Smoke Tests
 
     [Test]
     public void AssignNoConstraintSmokeTest()
@@ -30,18 +39,24 @@ namespace Gbd.PeriodMatching.Tests
     }
 
 
-    [TestCase(false, ExpectedException=typeof(AssertionException))]
-    [TestCase(false, 12, ExpectedException=typeof(AssertionException))]
-
+    [TestCase(false)]
+    [TestCase(true, 12)]
+    [TestCase(true, ExpectedException=typeof(AssertionException))]
+    [TestCase(true, -1, ExpectedException=typeof(AssertionException))]
+    [TestCase(true, PeriodMatcher.MaxTimersSupported+1, ExpectedException=typeof(AssertionException))]
     public void ForbiddenCasesSmokeTest(bool enableMaxTimers, int maxTimers = 0)
     {
-      PeriodMatcher sandbox = new PeriodMatcher {ConstraintMaxTimers = 0};
+      if (enableMaxTimers)
+      {
+        _sandbox.ConstraintMaxTimers = maxTimers;
+      }
 
-      sandbox.Assign(new List<long>());
-
-
+      _sandbox.Assign(new List<long>());
     }
 
+
+
+    #endregion
 
 
   }
