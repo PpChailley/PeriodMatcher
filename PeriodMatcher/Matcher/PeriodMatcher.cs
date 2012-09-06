@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using NLog;
 using NUnit.Framework;
 
 namespace Gbd.PeriodMatching.Matcher
 {
   public class PeriodMatcher
   {
+
+    private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
     public const int MaxTimersSupported = 100;
     public const int MaxPeriodsSupported = 50*1000;
@@ -47,8 +50,10 @@ namespace Gbd.PeriodMatching.Matcher
     {
       AssertStatusIsReadyForComputation();
 
+      _timersAssignment = new List<long>(_periodsToMatch.Count);
 
 
+      _timersAssignmentDone = true;
     }
 
 
