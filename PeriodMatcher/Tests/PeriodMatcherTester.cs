@@ -1,25 +1,42 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Gbd.PeriodMatching.Matcher;
+﻿using Gbd.PeriodMatching.Matcher;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 using NUnit.Framework;
 
 namespace Gbd.PeriodMatching.Tests
 {
 
   [TestFixture]
-  public class PeriodMatcherTester
+  public abstract class PeriodMatcherTester
   {
+
+    private static Logger Log;
+
 
     protected const int MaxP = PeriodMatcher.MaxPeriodsSupported;
     protected const int MaxT = PeriodMatcher.MaxTimersSupported;
 
     protected PeriodMatcher Sandbox;
 
-    #region Setup And TearDown
+
+
+    public const string ApplicationSourcePath = @"C:\ProjetsDev\trunk\Neosynergix\QA\Tools\PeriodMatcher\PeriodMatcher";
+    public const string NlogCfgFile = ApplicationSourcePath + @"\NLog.cfg";
+    public const string NlogDefaultLogFile = ApplicationSourcePath + @"\PeriodMatcher.log";
+
+    [TestFixtureSetUp]
+    public void TestFixtureSetup()
+    {
+      //System.Environment.SetEnvironmentVariable("NLOG_GLOBAL_CONFIG_FILE", NlogCfgFile);
+      InitializeNLog();
+    }
+
 
     [SetUp]
     public void Setup()
     {
+      Log.Info(" ** SetUp **");
       Sandbox = new PeriodMatcher();
     }
 
@@ -27,13 +44,34 @@ namespace Gbd.PeriodMatching.Tests
     [TearDown]
     public void TearDown()
     {
+      Log.Info(" ** TearDown **");
       Sandbox = null;
-      System.GC.Collect();
+      //System.GC.Collect();
     }
 
 
-    #endregion
+    [Test]
+    [Category("SelfTests")]
+    public void CheckNLogIsRunning()
+    {
+      
+    }
 
  
+
+    private static void InitializeNLog()
+    {
+      var config = new LoggingConfiguration();
+      var target = new FileTarget {FileName = NlogDefaultLogFile};
+      config.AddTarget("logfile", target);
+      config.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, target));
+      LogManager.Configuration = config;
+
+      Log = LogManager.GetCurrentClassLogger();
+
+      Log.Info("NLog Initialized");
+    }
+
+
   }
 }

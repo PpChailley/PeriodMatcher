@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
 
@@ -30,7 +31,17 @@ namespace Gbd.PeriodMatching.Tests
     }
 
 
+    [Test]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void NoAccessShouldBeGivenBeforeComputationTestsAreDone()
+    {
+      Sandbox.PeriodsToMatch.Add(100);
+      Sandbox.Assign();
 
+      Sandbox.PeriodsToMatch.Add(200);
+      int a = Sandbox.TimersAssignment.Count;
+      Assert.That(a, Is.Not.Null);
+    }
 
 
     #endregion

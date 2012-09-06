@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using NLog;
 using NUnit.Framework;
 
 namespace Gbd.PeriodMatching.Tests
@@ -9,12 +6,13 @@ namespace Gbd.PeriodMatching.Tests
   public class ManualSuppliedValuesTester : PeriodMatcherTester
   {
 
-    [TestCase(12, 13)]
-    //[Test]
-    //public void AssignNoConstraintSmokeTest2(
-    //  [Values(0, 12, 777777)]     int period,
-    //  [Range(0, MaxP, 171)]         int nbPeriods)
-    public void AssignNoConstraintSmokeTest(long period, int nbPeriods)
+    private static readonly Logger Log = LogManager.GetCurrentClassLogger();
+
+    //[TestCase(12, 13)]
+    //public void AssignNoConstraintSmokeTest(long period, int nbPeriods)    [Test]
+    public void AssignNoConstraintSmokeTest2(
+      [Values(0, 12, 777777)]     int period,
+      [Range(0, MaxP, 171)]         int nbPeriods)
     {
       for (int i = 0; i < nbPeriods; i++)
       {
