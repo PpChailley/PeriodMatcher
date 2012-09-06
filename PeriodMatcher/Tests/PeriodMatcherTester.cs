@@ -36,7 +36,7 @@ namespace Gbd.PeriodMatching.Tests
     [SetUp]
     public void Setup()
     {
-      Log.Info(" ** SetUp **");
+      //Log.Trace(" ** SetUp **");
       Sandbox = new PeriodMatcher();
     }
 
@@ -44,19 +44,13 @@ namespace Gbd.PeriodMatching.Tests
     [TearDown]
     public void TearDown()
     {
-      Log.Info(" ** TearDown **");
+      //Log.Trace(" ** TearDown **");
       Sandbox = null;
       //System.GC.Collect();
     }
 
 
-    [Test]
-    [Category("SelfTests")]
-    public void CheckNLogIsRunning()
-    {
-      
-    }
-
+  
  
 
     private static void InitializeNLog()
@@ -71,6 +65,7 @@ namespace Gbd.PeriodMatching.Tests
 
       Log.Info("NLog Initialized");
     }
+
 
 
   }
