@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using NUnit.Framework;
 
@@ -12,8 +13,6 @@ namespace Gbd.PeriodMatching.Matcher
 
     private int _constraintMaxTimers = 0;
     private bool _constraintEnableTimers = false;
-
-
     public int ConstraintMaxTimers
     {
       set 
@@ -31,7 +30,18 @@ namespace Gbd.PeriodMatching.Matcher
       set { _periodsToMatch = value; }
     }
 
+    private bool _timersAssignmentDone = false;
+    private List<long> _timersAssignment;
+    public List<long> TimersAssignment
+    {
+      get
+      {
+        if (_timersAssignmentDone == false)
+          throw new InvalidOperationException("Cannot access the result of the computation before calling Assign()");
 
+        return new List<long>(_timersAssignment);
+      }
+    }
 
     public void Assign()
     {

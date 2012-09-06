@@ -36,10 +36,21 @@ namespace Gbd.PeriodMatching.Tests
 
     #region Smoke Tests
 
-    [Test]
+    //[Test]
+    //public void AssignNoConstraintSmokeTest(
+    //  [Values(0, 12, 777777)]     long period,
+    //  [Range(0, MaxP, 1)]         int nbPeriods)
+    [TestCase(12,13)]
     public void AssignNoConstraintSmokeTest(long period, int nbPeriods)
     {
+      for (int i = 0; i < nbPeriods; i++)
+      {
+        _sandbox.PeriodsToMatch.Add(period);
+      }
 
+      _sandbox.Assign();
+
+      Assert.That(_sandbox.TimersAssignment, Is.All.EqualTo(period));
     }
 
 
