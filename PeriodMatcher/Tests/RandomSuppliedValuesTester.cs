@@ -16,6 +16,12 @@ namespace Gbd.PeriodMatching.Tests
     private readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
 
+
+
+
+
+    #region Smoke Self Tests
+
     [Test]
     [Category("SelfTests")]
     public void NCrunchSmokeTest()
@@ -23,47 +29,37 @@ namespace Gbd.PeriodMatching.Tests
       throw new NotImplementedException("Just check that this is executed");
     }
 
-    private List<long> GeneratePeriodsForTimer(ICollection<long> timers, int nbPeriods)
+    [Test]
+    [Category("SelfTests")]
+    public void NCrunchSmokeTest2()
     {
-      throw new NotImplementedException();
+      throw new NotImplementedException("Just check that this is executed");
     }
 
-    //[Test]
-    //[Category("SelfTests")]
-    //[Ignore]
-    public long MultiplyByRandomPowerOf2NoOverflow(
-      [Range(0, int.MaxValue, 131)]            int selectedTimerHOB,
-      [Range(0, int.MaxValue, 941)]            int selectedTimerLOB
-      )
-    {
-      //return MultiplyByRandomPowerOf2NoOverflow((uint) selectedTimerHOB, (uint) selectedTimerLOB);
-      throw new NotImplementedException();
-    }
-
-    public long MultiplyByRandomPowerOf2NoOverflow(long selectedTimer)
+    [TestCase(100, Result = 10)]
+    [Category("SelfTests")]
+    public long a(long selectedTimer)
     {
       //SplitLong split = new SplitLong(selectedTimer);
       //return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
-            throw new NotImplementedException();
-
-    }
-    public long MultiplyByRandomPowerOf2NoOverflow(SplitLong selectedTimer)
-    {
-      //return MultiplyByRandomPowerOf2NoOverflow(selectedTimer.HOB, selectedTimer.LOB);
-            throw new NotImplementedException();
+      return (long)10;
 
     }
 
-    //[Test]
-    //[Category("SelfTests")]
-    //[Ignore]
-    public long MultiplyByRandomPowerOf2NoOverflow(
-      [Range(0, int.MaxValue, 131)]            uint selectedTimerHOB,
-      [Range(0, int.MaxValue, 941)]            uint selectedTimerLOB
-      )
+
+    [TestCase(100)]
+    [Category("SelfTests")]
+    public void b(long selectedTimer)
     {
+      //SplitLong split = new SplitLong(selectedTimer);
+      //return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
       throw new NotImplementedException();
+
     }
+
+
+    #endregion
+
 
 
 

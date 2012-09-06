@@ -9,3 +9,4 @@ Gbd.PeriodMatching.vshost.exe
 PeriodMatcher.csproj.FileListAbsolute.txt
 Debug
 *.log
+*.user
