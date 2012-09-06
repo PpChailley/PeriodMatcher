@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using NUnit.Framework;
 
 namespace Gbd.PeriodMatching.Matcher
@@ -22,7 +23,13 @@ namespace Gbd.PeriodMatching.Matcher
       }
     }
 
-    public ICollection<long> PeriodsToMatch = null;
+
+    private ICollection<long> _periodsToMatch = null;
+    public ICollection<long> PeriodsToMatch
+    {
+      get { return _periodsToMatch ?? (_periodsToMatch = new Collection<long>()); }
+      set { _periodsToMatch = value; }
+    }
 
 
 
