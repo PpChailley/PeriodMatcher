@@ -13,7 +13,6 @@ namespace Gbd.PeriodMatching.Tests
     private const int MaxP = PeriodMatcher.MaxPeriodsSupported;
     private const int MaxT = PeriodMatcher.MaxTimersSupported;
 
-
     private PeriodMatcher _sandbox;
 
     #region Setup And TearDown
@@ -38,9 +37,8 @@ namespace Gbd.PeriodMatching.Tests
     #region Smoke Tests
 
     [Test]
-    public void AssignNoConstraintSmokeTest()
+    public void AssignNoConstraintSmokeTest(long period, int nbPeriods)
     {
-      
 
     }
 
@@ -57,7 +55,6 @@ namespace Gbd.PeriodMatching.Tests
         _sandbox.ConstraintMaxTimers = maxTimers;
       }
 
-      _sandbox.PeriodsToMatch = new Collection<long>();
       _sandbox.Assign();
     }
 
@@ -66,7 +63,6 @@ namespace Gbd.PeriodMatching.Tests
 
 
     #endregion
-
 
     #region Robustness and limits
 
