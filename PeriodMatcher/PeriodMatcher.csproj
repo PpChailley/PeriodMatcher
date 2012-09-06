@@ -64,6 +64,8 @@
   <ItemGroup>
     <Compile Include="Matcher\PeriodMatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\InputIntegrityTester.cs" />
+    <Compile Include="Tests\ManualSuppliedValuesTester.cs" />
     <Compile Include="Tests\PeriodMatcherTester.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
