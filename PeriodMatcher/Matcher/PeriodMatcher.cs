@@ -29,8 +29,12 @@ namespace Gbd.PeriodMatching.Matcher
     private ICollection<long> _periodsToMatch = null;
     public ICollection<long> PeriodsToMatch
     {
-      get { return _periodsToMatch ?? (_periodsToMatch = new Collection<long>()); }
       set { _periodsToMatch = value; }
+      get
+      {
+        _timersAssignmentDone = false;
+        return _periodsToMatch ?? (_periodsToMatch = new Collection<long>()); 
+      }
     }
 
     private bool _timersAssignmentDone = false;
