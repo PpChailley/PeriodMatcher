@@ -16,10 +16,6 @@ namespace Gbd.PeriodMatching.Tests
     private readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
 
-
-
-
-
     #region Smoke Self Tests
 
     [Test]
@@ -83,18 +79,6 @@ namespace Gbd.PeriodMatching.Tests
 
     #endregion
 
-
-    [TestCase(100)]
-    [Category("SelfTests")]
-    public void b(long selectedTimer)
-    {
-      //SplitLong split = new SplitLong(selectedTimer);
-      //return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
-      throw new NotImplementedException();
-
-    }
-
-
     #region Self Tests
 
     [Test]
@@ -133,7 +117,6 @@ namespace Gbd.PeriodMatching.Tests
 
 
     #endregion
-
 
     #region Helpers
 
@@ -194,7 +177,7 @@ namespace Gbd.PeriodMatching.Tests
       if ((1 << currentShift) > maxMultiplierForNotOverflowing)
       {
         Log.Warn(String.Format("  => multiplier {0:0} (0x {0:X16}) is bigger than its max (shift {1:0}).", (1 << currentShift), currentShift));
-        throw new NotImplementedException("Multiplier generation went wrong (1st check: shift comparison)");
+        throw new InvalidOperationException("Multiplier generation went wrong (1st check: shift comparison)");
       }
 
       long multiplicationResult = selectedTimer << currentShift;
@@ -202,7 +185,7 @@ namespace Gbd.PeriodMatching.Tests
       {
         Log.Warn(String.Format("  => multiplication result overflows : {0:0} (0x {0:X16}). Shift = {1:0}", multiplicationResult, currentShift));
         Log.Warn(String.Format("    /  {0:X16} << {1:0} = {2:X16}", selectedTimer, currentShift, multiplicationResult));
-        throw new NotImplementedException("Multiplier generation went wrong (2nd check: result comparison)");
+        throw new InvalidOperationException("Multiplier generation went wrong (2nd check: result comparison)");
       }
 
       Log.Warn(String.Format("Multiplier successfully generated - {0:X16} << {1:0} = {2:X16}", selectedTimer, currentShift, multiplicationResult));
