@@ -71,12 +71,39 @@ namespace Gbd.PeriodMatching.Tests
     }
 
 
+    private static int[] MakeRandomIntArray(int min, int max, int number)
+    {
+      List<int> data = new List<int>(number);
+
+      for (int i = 0; i<number; i++)
+        data.Add(Rnd.Next(min, max));
+
+      return data.ToArray();
+    }
+
+
+
+    protected static int[] DPCapacityLimitsTestsAllRangeNbPeriods()
+    {
+      return MakeRandomIntArray(0, MaxP, 10);
+    }
+
+    protected static int[] DPCapacityLimitsTestsAllRangeNbTimers()
+    {
+      return MakeRandomIntArray(0, MaxT, 5);
+    }
+
+    protected static int[] DPCapacityLimitsTestsAllRangeValue()
+    {
+      return MakeRandomIntArray(0, 1000*1000, 5);
+    }
+
+
     [Test]
-    [Ignore("There is a bug in NCrunch. Using CapacityLimitsAllRange2 tests instead")]
-    public void CapacityLimitsAllRange(
-      [Random(0, MaxP, 10)]          int nbPeriods,
-      [Random(1, MaxT, 5)]            int nbTimers,
-      [Random(0, 1000 * 1000, 5)]       int periodsValue)
+    public void CapacityLimitsTestsAllRange(
+      [ValueSource("DPCapacityLimitsTestsAllRangeNbPeriods")]          int nbPeriods,
+      [ValueSource("DPCapacityLimitsTestsAllRangeNbTimers")]            int nbTimers,
+      [ValueSource("DPCapacityLimitsTestsAllRangeValue")]       int periodsValue)
     {
       Sandbox.ConstraintMaxTimers = nbTimers;
 
