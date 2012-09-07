@@ -50,7 +50,6 @@ namespace Gbd.PeriodMatching.Tests
 
 
     [Test]
-    
     public void ForbiddenCasesAllRange(
       [Range(1, MaxT)]      int maxTimers)
     {
@@ -72,29 +71,10 @@ namespace Gbd.PeriodMatching.Tests
 
 
     [Test]
-    [Ignore("There is a bug in NCrunch. Using CapacityLimitsAllRange2 tests instead")]
     public void CapacityLimitsAllRange(
-      [Random(0, MaxP, 10)]          int nbPeriods,
-      [Random(1, MaxT, 5)]            int nbTimers,
-      [Random(0, 1000 * 1000, 5)]       int periodsValue)
-    {
-      Sandbox.ConstraintMaxTimers = nbTimers;
-
-      List<long> periods = new List<long>(nbPeriods * 2);
-      for (int i = 0; i < nbPeriods; i++)
-      {
-        periods.Add(periodsValue);
-      }
-      Sandbox.PeriodsToMatch = periods;
-
-      Sandbox.Assign();
-    }
-
-    [TestCase(0, 1, 666)]
-    [TestCase(0, MaxT, 666)]
-    [TestCase(MaxP, 1, 666)]
-    [TestCase(MaxP, MaxT, 666)]
-    public void CapacityLimitsAllRange2(int nbPeriods, int nbTimers, int periodsValue)
+      [Values(0, 1, 10, 100, MaxP-1, MaxP)]                                             int nbPeriods,
+      [Values(1, 10, MaxT-1, MaxT)]                                                     int nbTimers,
+      [Values(1, 2, 9, 100, MaxS32-1, MaxS32, (long)MaxS32+1, MaxS64-1, MaxS64)]        long periodsValue)
     {
       Sandbox.ConstraintMaxTimers = nbTimers;
 
@@ -110,7 +90,6 @@ namespace Gbd.PeriodMatching.Tests
 
 
     [Test]
-    
     [ExpectedException(typeof(AssertionException))]
     public void CapacityLimitsRobustness(
       [Values(1, 5, MaxP, MaxP + 1)]                                        int nbPeriods,

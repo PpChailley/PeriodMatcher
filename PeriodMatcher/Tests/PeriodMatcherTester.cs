@@ -1,4 +1,5 @@
-﻿using Gbd.PeriodMatching.Matcher;
+﻿using System;
+using Gbd.PeriodMatching.Matcher;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -16,9 +17,15 @@ namespace Gbd.PeriodMatching.Tests
 
     protected const int MaxP = PeriodMatcher.MaxPeriodsSupported;
     protected const int MaxT = PeriodMatcher.MaxTimersSupported;
+    protected const int MaxS32 = int.MaxValue;
+    protected const uint MaxU32 = uint.MaxValue;
+    protected const int MinS32 = int.MinValue;
+    protected const long MaxS64 = long.MaxValue;
+    protected const ulong MaxU64 = ulong.MaxValue;
+    protected const long MinS64 = long.MinValue;
+
 
     protected PeriodMatcher Sandbox;
-
 
 
     public const string ApplicationSourcePath = @"C:\ProjetsDev\trunk\Neosynergix\QA\Tools\PeriodMatcher\PeriodMatcher";
