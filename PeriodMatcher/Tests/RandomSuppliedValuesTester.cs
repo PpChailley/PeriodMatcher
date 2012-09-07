@@ -34,7 +34,7 @@ namespace Gbd.PeriodMatching.Tests
     [Test]
     [Category("SelfTests")]
     public void SplitLongTests(
-      [Values(long.MinValue, long.MinValue + 1, -1, long.MaxValue - 1, long.MaxValue)] long selectedTimer)
+      [Values(long.MinValue, long.MinValue + 1L, -1L, long.MaxValue - 1L, long.MaxValue)] long selectedTimer)
     {
       SplitLong s = new SplitLong(selectedTimer);
       long rebuilt = s.ToLong();
@@ -86,7 +86,7 @@ namespace Gbd.PeriodMatching.Tests
       [Range(0, 62, 1)]         int power)
     {
       long shouldBeAPowerOf2 = ((long) 1) << power;
-      AssertIsAPowerOfTwo(shouldBeAPowerOf2);
+      Assert.That(IsAPowerOfTwo(shouldBeAPowerOf2), Is.True);
     }
 
     [Test]
@@ -97,7 +97,7 @@ namespace Gbd.PeriodMatching.Tests
     {
       long shouldNotBeAPowerOf2 = ((long)1) << power;
       shouldNotBeAPowerOf2 += offset;
-      AssertIsAPowerOfTwo(shouldNotBeAPowerOf2);
+      Assert.That(IsAPowerOfTwo(shouldNotBeAPowerOf2), Is.True);
     }
 
 
@@ -112,15 +112,34 @@ namespace Gbd.PeriodMatching.Tests
         long multiplier = timer/period;
 
         Assert.That(multiplier*period, Is.EqualTo(timer), "Generated timer is not a multiple of the period (integer rounding occurred)");
-        AssertIsAPowerOfTwo(multiplier);
+        Assert.That(IsAPowerOfTwo(multiplier), Is.True);
     }
+
+
+
+    [Test]
+    public void GeneratePeriodsForTimerTester(
+      [Values(0, 1, 10, 912, MaxS32 - 1, MaxS32)]             int timerHOB,
+      [Values(1, 10, 951, MaxS32-1, MaxS32)]                  int timerLOB,
+      [Values(1, 2, 3, 4, 10, 100, MaxP-1, MaxP)]             int nbPeriods)
+    {
+      SplitLong timer = new SplitLong((uint)timerHOB, (uint)timerLOB);
+
+      var periods = GeneratePeriodsForTimer(timer.ToLong(), nbPeriods);
+
+      Assert.That(periods, Is.All.Matches(new Predicate<long>(l => IsAPowerOfTwo(l))));
+        
+
+    }
+
+
 
 
     #endregion
 
     #region Helpers
 
-    public void AssertIsAPowerOfTwo(long a)
+    public bool IsAPowerOfTwo(long a)
     {
       long currentPowerOfTwo = (long.MaxValue/2) + 1;
       Assert.That(currentPowerOfTwo, Is.EqualTo(((long) 1) << 62));
@@ -128,18 +147,19 @@ namespace Gbd.PeriodMatching.Tests
       while(currentPowerOfTwo > 0)
       {
         if (a == currentPowerOfTwo)
-          return;
+          return true;
 
         currentPowerOfTwo = currentPowerOfTwo / 2;
       }
 
-      throw new AssertionException(String.Format("Provided number is not a power of 2: {0:0} (0x{0:X16})", a));
+      Log.Info(String.Format("Provided number is not a power of 2: {0:0} (0x{0:X16})", a));
+      return false;
     }
 
     #endregion
 
 
-    private List<long> GeneratePeriodsForTimer(ICollection<long> timers, int nbPeriods)
+    private List<long> GeneratePeriodsForTimer(long timer, int nbPeriods)
     {
       throw new NotImplementedException();
     }
