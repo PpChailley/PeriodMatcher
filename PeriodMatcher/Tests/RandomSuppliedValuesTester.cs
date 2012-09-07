@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Gbd.PeriodMatching.Tools;
 using NLog;
 using NUnit.Framework;
@@ -49,20 +47,10 @@ namespace Gbd.PeriodMatching.Tests
     public void SplitLongTests(
       [Values(int.MinValue, int.MinValue + 1, -1, int.MaxValue - 1, int.MaxValue)] int selectedTimer)
     {
-      SplitLong s = new SplitLong((long)selectedTimer);
+      SplitLong s = new SplitLong(selectedTimer);
       long rebuilt = s.ToLong();
 
-      if (selectedTimer > ((long)int.MaxValue) || selectedTimer < ((long)int.MinValue))
-      {
-        Assert.That(rebuilt, Is.EqualTo(selectedTimer));
-      }
-      else
-      {
-        int rebuiltCast = (int)rebuilt;
-        int selectedTimerCast = (int)selectedTimer;
-        Assert.That(rebuiltCast, Is.EqualTo(selectedTimerCast));
-      }
-
+      Assert.That((int)rebuilt, Is.EqualTo(selectedTimer));
     }
 
 
@@ -72,8 +60,7 @@ namespace Gbd.PeriodMatching.Tests
       [Values(0, 1, ulong.MaxValue-1, ulong.MaxValue)] ulong selectedTimer)
     {
       SplitLong s = new SplitLong(selectedTimer);
-      ulong rebuilt = s.ToULong();
-      Assert.That(rebuilt, Is.EqualTo(selectedTimer));
+      Assert.That(s.ToULong(), Is.EqualTo(selectedTimer));
     }
 
 
@@ -127,9 +114,7 @@ namespace Gbd.PeriodMatching.Tests
 
       var periods = GeneratePeriodsForTimer(timer.ToLong(), nbPeriods);
 
-      Assert.That(periods, Is.All.Matches(new Predicate<long>(l => IsAPowerOfTwo(l))));
-        
-
+      Assert.That(periods, Is.All.Matches(new Predicate<long>(IsAPowerOfTwo)));
     }
 
 
