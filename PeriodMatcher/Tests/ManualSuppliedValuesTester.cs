@@ -27,7 +27,8 @@ namespace Gbd.PeriodMatching.Tests
 
 
 
-    [TestCase(new long[] { 1, 2, 3 }, new long[] { 1, 2, 3 })]
+    [TestCase(new long[] { 1, 2, 3 }, new long[] { 1, 3 })]
+    [TestCase(new long[] { 1, 3, 4 }, new long[] { 1, 3, 4 })]
     
     public void AssignNoConstraintSimpleFuncTest(long[] periods, long[] expectedTimers)
     {

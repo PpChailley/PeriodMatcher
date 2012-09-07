@@ -33,7 +33,6 @@ namespace Gbd.PeriodMatching.Tests
 
     [Test]
     [ExpectedException(typeof(InvalidOperationException))]
-    
     public void NoAccessShouldBeGivenBeforeComputationTestsAreDone()
     {
       Sandbox.PeriodsToMatch.Add(100);
@@ -95,7 +94,6 @@ namespace Gbd.PeriodMatching.Tests
     [TestCase(0, MaxT, 666)]
     [TestCase(MaxP, 1, 666)]
     [TestCase(MaxP, MaxT, 666)]
-    
     public void CapacityLimitsAllRange2(int nbPeriods, int nbTimers, int periodsValue)
     {
       Sandbox.ConstraintMaxTimers = nbTimers;
