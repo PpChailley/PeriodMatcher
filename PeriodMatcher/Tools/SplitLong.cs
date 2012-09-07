@@ -18,6 +18,12 @@
       HOB = (uint)(value >> 32);
     }
 
+    public SplitLong(uint hob, uint lob)
+    {
+      this.HOB = hob;
+      this.LOB = lob;
+    }
+
     public long ToLong()
     {
       return (HOB << 32) | LOB;
