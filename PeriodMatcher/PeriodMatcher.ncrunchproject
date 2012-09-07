@@ -16,4 +16,12 @@
   <UseBuildConfiguration></UseBuildConfiguration>
   <ProxyProcessPath></ProxyProcessPath>
   <UseCPUArchitecture>AutoDetect</UseCPUArchitecture>
+  <IgnoredTests>
+    <NamedTestSelector>
+      <TestName>Gbd.PeriodMatching.Tests.RandomSuppliedValuesTester.SplitLongTests(0)</TestName>
+    </NamedTestSelector>
+    <NamedTestSelector>
+      <TestName>Gbd.PeriodMatching.Tests.RandomSuppliedValuesTester.SplitLongTests(1)</TestName>
+    </NamedTestSelector>
+  </IgnoredTests>
 </ProjectConfiguration>

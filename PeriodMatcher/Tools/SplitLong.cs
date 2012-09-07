@@ -8,7 +8,9 @@
 
     public SplitLong(long value)
     {
-      LOB = (uint)(value & uint.MaxValue);
+      long tmpLOB = (value & (long)uint.MaxValue);
+
+      LOB = (uint) value;
       HOB = (uint)(value >> 32);
     }
 
@@ -26,12 +28,16 @@
 
     public long ToLong()
     {
-      return (HOB << 32) | LOB;
+      long shiftedLeft = (((long)HOB) << 32);
+      shiftedLeft = shiftedLeft | LOB;
+      return shiftedLeft;
     }
 
     public ulong ToULong()
     {
-      return (HOB << 32) | LOB;
+      ulong shiftedLeft = (((ulong)HOB) << 32);
+      shiftedLeft = shiftedLeft | LOB;
+      return shiftedLeft;
     }
   }
 }
