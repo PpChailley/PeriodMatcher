@@ -83,6 +83,20 @@ namespace Gbd.PeriodMatching.Tests
     }
 
 
+    [Test]
+    public void MultiplyByRandomPowerOf2NoOverflowSelfTests(
+      [Values(0, int.MaxValue, 99999999)]            int HOB,
+      [Values(0, int.MaxValue, 99999998)]            int LOB
+      )
+    {
+        long period = new SplitLong((uint) HOB, (uint) LOB).ToLong();
+        long timer = MultiplyByRandomPowerOf2NoOverflow(HOB, LOB);
+        long multiplier = timer/period;
+
+        Assert.That(multiplier*period, Is.EqualTo(timer), "Generated timer is not a multiple of the period (integer rounding occurred)");
+        AssertIsAPowerOfTwo(multiplier);
+    }
+
 
     #endregion
 
@@ -106,6 +120,33 @@ namespace Gbd.PeriodMatching.Tests
     }
 
     #endregion
+
+
+    private List<long> GeneratePeriodsForTimer(ICollection<long> timers, int nbPeriods)
+    {
+      throw new NotImplementedException();
+    }
+
+    public long MultiplyByRandomPowerOf2NoOverflow(int selectedTimerHOB,int selectedTimerLOB)
+    {
+      //return MultiplyByRandomPowerOf2NoOverflow((uint) selectedTimerHOB, (uint) selectedTimerLOB);
+      throw new NotImplementedException();
+    }
+    public long MultiplyByRandomPowerOf2NoOverflow(long selectedTimer)
+    {
+      //SplitLong split = new SplitLong(selectedTimer);
+      //return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
+      throw new NotImplementedException();
+    }
+    public long MultiplyByRandomPowerOf2NoOverflow(SplitLong selectedTimer)
+    {
+      //return MultiplyByRandomPowerOf2NoOverflow(selectedTimer.HOB, selectedTimer.LOB);
+      throw new NotImplementedException();
+    }
+    public long MultiplyByRandomPowerOf2NoOverflow(uint selectedTimerHOB,uint selectedTimerLOB)
+    {
+      throw new NotImplementedException();
+    }
 
 
 
