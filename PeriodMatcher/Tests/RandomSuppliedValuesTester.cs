@@ -24,6 +24,7 @@ namespace Gbd.PeriodMatching.Tests
 
     [Test]
     [Category("SelfTests")]
+    [ExpectedException(typeof(NotImplementedException))]
     public void NCrunchSmokeTest()
     {
       throw new NotImplementedException("Just check that this is executed");
@@ -31,19 +32,22 @@ namespace Gbd.PeriodMatching.Tests
 
     [Test]
     [Category("SelfTests")]
-    public void NCrunchSmokeTest2()
+    public void SplitLongTests(
+      [Values(long.MinValue, long.MinValue + 1, -1, 0, 1, long.MaxValue - 1, long.MaxValue)] long selectedTimer)
     {
-      throw new NotImplementedException("Just check that this is executed");
+      SplitLong s = new SplitLong(selectedTimer);
+      long rebuilt = s.ToLong();
+      Assert.That(rebuilt, Is.EqualTo(selectedTimer));
     }
 
-    [TestCase(100, Result = 10)]
+    [Test]
     [Category("SelfTests")]
-    public long a(long selectedTimer)
+    public void SplitLongTests(
+      [Values(0, 1, ulong.MaxValue-1, ulong.MaxValue)] ulong selectedTimer)
     {
-      //SplitLong split = new SplitLong(selectedTimer);
-      //return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
-      return (long)10;
-
+      SplitLong s = new SplitLong(selectedTimer);
+      ulong rebuilt = s.ToULong();
+      Assert.That(rebuilt, Is.EqualTo(selectedTimer));
     }
 
 
@@ -86,7 +90,7 @@ namespace Gbd.PeriodMatching.Tests
     [Test]
     public void MultiplyByRandomPowerOf2NoOverflowSelfTests(
       [Values(0, int.MaxValue, 99999999)]            int HOB,
-      [Values(0, int.MaxValue, 99999998)]            int LOB
+      [Values(1, int.MaxValue, 99997598)]            int LOB
       )
     {
         long period = new SplitLong((uint) HOB, (uint) LOB).ToLong();
@@ -129,23 +133,50 @@ namespace Gbd.PeriodMatching.Tests
 
     public long MultiplyByRandomPowerOf2NoOverflow(int selectedTimerHOB,int selectedTimerLOB)
     {
-      //return MultiplyByRandomPowerOf2NoOverflow((uint) selectedTimerHOB, (uint) selectedTimerLOB);
-      throw new NotImplementedException();
+      return MultiplyByRandomPowerOf2NoOverflow((uint) selectedTimerHOB, (uint) selectedTimerLOB);
     }
     public long MultiplyByRandomPowerOf2NoOverflow(long selectedTimer)
     {
-      //SplitLong split = new SplitLong(selectedTimer);
-      //return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
-      throw new NotImplementedException();
+      SplitLong split = new SplitLong(selectedTimer);
+      return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
     }
     public long MultiplyByRandomPowerOf2NoOverflow(SplitLong selectedTimer)
     {
-      //return MultiplyByRandomPowerOf2NoOverflow(selectedTimer.HOB, selectedTimer.LOB);
-      throw new NotImplementedException();
+      return MultiplyByRandomPowerOf2NoOverflow(selectedTimer.HOB, selectedTimer.LOB);
     }
     public long MultiplyByRandomPowerOf2NoOverflow(uint selectedTimerHOB,uint selectedTimerLOB)
     {
-      throw new NotImplementedException();
+      long selectedTimer = (((long) selectedTimerHOB) << 32) | selectedTimerLOB;
+
+      Log.Warn("");
+      Log.Warn("Trying to generate a multiplier for timer value 0x {0:X8} {0:X8} = {0:X16}", selectedTimerHOB, selectedTimerLOB, selectedTimer);
+
+      long maxMultiplierForNotOverflowing = (long.MaxValue/selectedTimer);
+      double maxLog2ForNotOverflowing = Math.Log(maxMultiplierForNotOverflowing, 2);
+      int maxShiftForNotOverflowing = (int) maxLog2ForNotOverflowing;
+      int currentShift = _rnd.Next(maxShiftForNotOverflowing);
+
+      Log.Warn(String.Format("  - Max multiplier = {0:0} (0x {0:X16} )", maxMultiplierForNotOverflowing));
+      Log.Warn("  - Max Log2 = " + maxLog2ForNotOverflowing);
+      Log.Warn("  - Max Shift = " + maxShiftForNotOverflowing);
+
+
+      if ((1 << currentShift) > maxMultiplierForNotOverflowing)
+      {
+        Log.Warn(String.Format("  => multiplier {0:0} (0x {0:X16}) is bigger than its max (shift {1:0}).", (1 << currentShift), currentShift));
+        throw new NotImplementedException("Multiplier generation went wrong (1st check: shift comparison)");
+      }
+
+      long multiplicationResult = selectedTimer << currentShift;
+      if (multiplicationResult < 0)
+      {
+        Log.Warn(String.Format("  => multiplication result overflows : {0:0} (0x {0:X16}). Shift = {1:0}", multiplicationResult, currentShift));
+        Log.Warn(String.Format("    /  {0:X16} << {1:0} = {2:X16}", selectedTimer, currentShift, multiplicationResult));
+        throw new NotImplementedException("Multiplier generation went wrong (2nd check: result comparison)");
+      }
+
+      Log.Warn(String.Format("Multiplier successfully generated - {0:X16} << {1:0} = {2:X16}", selectedTimer, currentShift, multiplicationResult));
+      return multiplicationResult;
     }
 
 
