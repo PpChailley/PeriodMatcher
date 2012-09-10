@@ -46,6 +46,7 @@ namespace Gbd.PeriodMatching.Matcher
       {
         _constraintMaxTimers = value;
         _constraintEnableTimers = true;
+        _timersAssignmentDone = false;
       }
     }
 
