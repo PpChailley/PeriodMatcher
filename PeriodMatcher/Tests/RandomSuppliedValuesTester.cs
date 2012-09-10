@@ -31,7 +31,24 @@ namespace Gbd.PeriodMatching.Tests
         currentPowerOfTwo = currentPowerOfTwo / 2;
       }
 
-      Log.Info(String.Format("Provided number is not a power of 2: {0:0} (0x{0:X16})", a));
+      //Log.Info(String.Format("Provided number is not a power of 2: {0:0} (0x{0:X16})", a));
+      return false;
+    }
+
+    public bool IsAPowerOfTwoProduct(long product, long notPowerOfTwo)
+    {
+      long currentPowerOfTwo = (long.MaxValue / 2) + 1;
+      Assert.That(currentPowerOfTwo, Is.EqualTo(((long)1) << 62));
+
+      while (currentPowerOfTwo > 0)
+      {
+        if (product == (currentPowerOfTwo*notPowerOfTwo))
+          return true;
+
+        currentPowerOfTwo = currentPowerOfTwo / 2;
+      }
+
+      //Log.Info(String.Format("Provided number is not a power of 2: {0:0} (0x{0:X16})", a));
       return false;
     }
 
@@ -74,9 +91,9 @@ namespace Gbd.PeriodMatching.Tests
       int maxShiftForNotOverflowing = (int) maxLog2ForNotOverflowing;
       int currentShift = _rnd.Next(maxShiftForNotOverflowing);
 
-      Log.Warn(String.Format("  - Max multiplier = {0:0} (0x {0:X16} )", maxMultiplierForNotOverflowing));
-      Log.Warn("  - Max Log2 = " + maxLog2ForNotOverflowing);
-      Log.Warn("  - Max Shift = " + maxShiftForNotOverflowing);
+      //Log.Warn(String.Format("  - Max multiplier = {0:0} (0x {0:X16} )", maxMultiplierForNotOverflowing));
+      //Log.Warn("  - Max Log2 = " + maxLog2ForNotOverflowing);
+      //Log.Warn("  - Max Shift = " + maxShiftForNotOverflowing);
 
 
       if ((1 << currentShift) > maxMultiplierForNotOverflowing)
@@ -93,7 +110,7 @@ namespace Gbd.PeriodMatching.Tests
         throw new InvalidOperationException("Multiplier generation went wrong (2nd check: result comparison)");
       }
 
-      Log.Warn(String.Format("Multiplier successfully generated - {0:X16} << {1:0} = {2:X16}", selectedTimer, currentShift, multiplicationResult));
+      //Log.Warn(String.Format("Multiplier successfully generated - {0:X16} << {1:0} = {2:X16}", selectedTimer, currentShift, multiplicationResult));
       return multiplicationResult;
     }
 
