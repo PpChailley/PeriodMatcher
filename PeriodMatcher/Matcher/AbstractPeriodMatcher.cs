@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using Gbd.PeriodMatching.Tests;
 using NLog;
 using NLog.Config;
@@ -77,6 +75,20 @@ namespace Gbd.PeriodMatching.Matcher
         return new List<long>(_timersAssignment);
       }
     }
+
+
+    private int _constraintMaxMultiplier = 0;
+
+    public int ConstraintMaxMultiplier
+    {
+      get { return _constraintMaxMultiplier; }
+      set 
+      { 
+        _constraintMaxMultiplier = value;
+        _timersAssignmentDone = false;
+      }
+    }
+
 
   }
 }

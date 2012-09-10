@@ -33,12 +33,30 @@ namespace Gbd.PeriodMatching.Tests
 
     [Test]
     [ExpectedException(typeof(InvalidOperationException))]
-    public void NoAccessShouldBeGivenBeforeComputationTestsAreDone()
+    public void InvalidateResultsWhenInputChanges()
     {
       Sandbox.PeriodsToMatch.Add(100);
       Sandbox.Assign();
 
       Sandbox.PeriodsToMatch.Add(200);
+      int a = Sandbox.TimersAssignment.Count;
+      Assert.That(a, Is.Not.Null);
+    }
+
+
+    [TestCase(true, true, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(true, false, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(false, true, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(false, false)]
+    public void InvalidateResultsWhenParametersChange(bool changeMaxMultiplier, bool changeMaxTimers)
+    {
+      Sandbox.PeriodsToMatch.Add(100);
+      Sandbox.Assign();
+
+      if (changeMaxMultiplier)    Sandbox.ConstraintMaxMultiplier = 64;
+      if (changeMaxTimers)        Sandbox.ConstraintMaxTimers = 10;
+
+
       int a = Sandbox.TimersAssignment.Count;
       Assert.That(a, Is.Not.Null);
     }
