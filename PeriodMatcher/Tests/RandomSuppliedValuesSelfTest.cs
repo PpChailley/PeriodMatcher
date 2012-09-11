@@ -120,8 +120,6 @@ namespace Gbd.PeriodMatching.Tests
 
     [Test]
     [Category("SelfTests")]
-    // NUnit is picky with longs that have int-compatible values (looks like it auto-casts them to int32)
-    // For some obscure reason, values 0 and 1 fail the test outside the test code. Better ask StackOverflow someday
     public void SplitLongTests(
       [Values(int.MinValue, int.MinValue + 1, -1, 0, 1, int.MaxValue - 1, int.MaxValue)] int selectedTimer)
     {

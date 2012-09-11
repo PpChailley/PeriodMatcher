@@ -14,8 +14,6 @@ namespace Gbd.PeriodMatching.Tests
     private readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
 
-
-
     #region Helpers
 
     public bool IsAPowerOfTwo(long a)
@@ -52,7 +50,6 @@ namespace Gbd.PeriodMatching.Tests
       return false;
     }
 
-    #endregion
 
     protected List<long> GeneratePeriodsForTimer(long timer, int nbPeriods)
     {
@@ -114,6 +111,7 @@ namespace Gbd.PeriodMatching.Tests
       return multiplicationResult;
     }
 
+    #endregion
 
 
   }
