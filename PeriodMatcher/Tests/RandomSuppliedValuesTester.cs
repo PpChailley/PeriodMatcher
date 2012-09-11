@@ -118,6 +118,49 @@ namespace Gbd.PeriodMatching.Tests
 
     #endregion
 
+    [Test]
+    public void AssignTesterSimpleNominalCases(
+      [Values(444, 879521, 8879543)]      int randomSeed,
+      [Values(200, MaxS32 - 600)]         long timer,
+      [Values(1, 5, 50)]                  int nbPeriods)
+    {
+      Rnd = new Random(randomSeed);
+      Sandbox.PeriodsToMatch = GeneratePeriodsForTimer(timer, nbPeriods);
+
+      Sandbox.Assign();
+
+      Assert.That(Sandbox.TimersAssignment.Count, Is.EqualTo(1));
+      foreach (long period in Sandbox.TimersAssignment)
+      {
+        Assert.That(IsAPowerOfTwoProduct(period, timer));
+      }
+    }
+
+
+    [Test]
+    public void AssignTesterNominalCasesWithSeveralTimersNeeded(
+      int randomSeed,
+      int maxSimilarPeriods, 
+      int nbPeriods)
+    {
+      Random rnd = new Random(randomSeed);
+      List<long> periods = new List<long>(nbPeriods);
+
+      for (int i = 0; i < nbPeriods; i++ )
+      {
+        int nbSimilar = rnd.Next(Math.Min(maxSimilarPeriods, nbPeriods-i));
+        SplitLong refTimer = new SplitLong(Rnd.Next());
+        //periods.AddRange(GeneratePeriodsForTimer());
+      }
+
+
+      periods.Shuffle(rnd);
+      Sandbox.PeriodsToMatch = periods;
+      Sandbox.Assign();
+
+      throw new NotImplementedException();
+    }
+
 
   }
 }

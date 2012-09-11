@@ -72,6 +72,8 @@
     <Compile Include="Tests\PeriodMatcherUnitTests.cs" />
     <Compile Include="Tests\RandomSuppliedValuesSelfTest.cs" />
     <Compile Include="Tests\RandomSuppliedValuesTester.cs" />
+    <Compile Include="Tests\ToolsSelfTests.cs" />
+    <Compile Include="Tools\RandomExtensions.cs" />
     <Compile Include="Tools\SplitLong.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
