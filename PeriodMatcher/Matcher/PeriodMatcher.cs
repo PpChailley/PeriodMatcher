@@ -33,10 +33,10 @@ namespace Gbd.PeriodMatching.Matcher
         Assert.That(_constraintMaxTimers, Is.LessThanOrEqualTo(MaxTimersSupported));
       }
 
-      Assert.That(PeriodsToMatch, Is.Not.Null);
-      Assert.That(PeriodsToMatch.Count, Is.LessThanOrEqualTo(MaxPeriodsSupported));
+      Assert.That(_periodsToMatch, Is.Not.Null);
+      Assert.That(_periodsToMatch.Count, Is.LessThanOrEqualTo(MaxPeriodsSupported));
 
-      Assert.That(PeriodsToMatch, Is.All.GreaterThanOrEqualTo(0));
+      Assert.That(_periodsToMatch, Is.All.GreaterThanOrEqualTo(0));
 
     }
   }

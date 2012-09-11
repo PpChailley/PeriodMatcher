@@ -68,6 +68,15 @@ namespace Gbd.PeriodMatching.Tests
 
 
     [Test]
+    [ExpectedException(typeof(AssertionException))]
+    public void ForbiddenToUseNullPeriods()
+    {
+      Sandbox.Assign();
+    }
+
+
+
+    [Test]
     public void ForbiddenCasesAllRange(
       [Range(1, MaxT)]      int maxTimers)
     {
