@@ -22,6 +22,8 @@ namespace Gbd.PeriodMatching.Tests
     [TestCase(true, MaxT + 1, ExpectedException = typeof(AssertionException))]
     public void ForbiddenCasesSmokeTest(bool enableMaxTimers, int maxTimers = 0)
     {
+      Sandbox.PeriodsToMatch.Clear();
+
       if (enableMaxTimers)
       {
         Sandbox.ConstraintMaxTimers = maxTimers;
@@ -74,6 +76,20 @@ namespace Gbd.PeriodMatching.Tests
       Sandbox.Assign();
     }
 
+
+    [Test]
+    [ExpectedException(typeof(AssertionException))]
+    public void ForbiddenToUseTooManyPeriods(
+      [Values(MaxP+1, MaxP+100)]                      int nbPeriods,
+      [Values(1, MaxU32, (long)MaxU32+1, MaxS64)]     long period)
+    {
+      for (int i =0; i< nbPeriods ; i++)
+      {
+        Sandbox.PeriodsToMatch.Add(period);
+      }
+
+      Sandbox.Assign();
+    }
 
 
     [Test]
