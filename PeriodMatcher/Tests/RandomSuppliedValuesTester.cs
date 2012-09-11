@@ -92,6 +92,11 @@ namespace Gbd.PeriodMatching.Tests
       //Log.Warn("  - Max Log2 = " + maxLog2ForNotOverflowing);
       //Log.Warn("  - Max Shift = " + maxShiftForNotOverflowing);
 
+      if (currentShift > maxShiftForNotOverflowing)
+      {
+        Log.Warn(String.Format("  => shift {0:0} is bigger than its max.", currentShift));
+        throw new InvalidOperationException("Multiplier generation went wrong (1st check: shift comparison)");
+      }
 
       if ((1 << currentShift) > maxMultiplierForNotOverflowing)
       {
@@ -100,7 +105,7 @@ namespace Gbd.PeriodMatching.Tests
       }
 
       long multiplicationResult = selectedTimer << currentShift;
-      if (multiplicationResult < 0)
+      if (multiplicationResult <= 0)
       {
         Log.Warn(String.Format("  => multiplication result overflows : {0:0} (0x {0:X16}). Shift = {1:0}", multiplicationResult, currentShift));
         Log.Warn(String.Format("    /  {0:X16} << {1:0} = {2:X16}", selectedTimer, currentShift, multiplicationResult));
