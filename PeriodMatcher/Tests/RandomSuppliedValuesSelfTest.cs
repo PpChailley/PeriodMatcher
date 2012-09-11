@@ -1,12 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Gbd.PeriodMatching.Matcher;
 using Gbd.PeriodMatching.Tools;
+using Moq;
 using NUnit.Framework;
 
 namespace Gbd.PeriodMatching.Tests
 {
-  public class RandomSuppliedValuesSelfTest :RandomSuppliedValuesTester
+  [TestFixture]
+  public class RandomSuppliedValuesSelfTest
   {
+
+    private RandomSuppliedValuesTester _testedTester;
+
+    protected const int MaxP = PeriodMatcherTester.MaxP;
+    protected const int MaxT = PeriodMatcherTester.MaxT;
+    protected const int MaxS32 = PeriodMatcherTester.MaxS32;
+    protected const uint MaxU32 = PeriodMatcherTester.MaxU32;
+    protected const int MinS32 = PeriodMatcherTester.MinS32;
+    protected const long MaxS64 = PeriodMatcherTester.MaxS64;
+    protected const ulong MaxU64 = PeriodMatcherTester.MaxU64;
+    protected const long MinS64 = PeriodMatcherTester.MinS64;
+
+    [SetUp]
+    public void SetUp()
+    {
+      _testedTester = new RandomSuppliedValuesTester();
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+      
+    }
+
+
+
 
     #region Self Tests
 
@@ -15,7 +45,7 @@ namespace Gbd.PeriodMatching.Tests
       [Range(0, 62, 1)]         int power)
     {
       long shouldBeAPowerOf2 = ((long)1) << power;
-      Assert.That(IsAPowerOfTwo(shouldBeAPowerOf2), Is.True);
+      Assert.That(RandomSuppliedValuesTester.IsAPowerOfTwo(shouldBeAPowerOf2), Is.True);
     }
 
     [Test]
@@ -26,7 +56,7 @@ namespace Gbd.PeriodMatching.Tests
     {
       long shouldNotBeAPowerOf2 = ((long)1) << power;
       shouldNotBeAPowerOf2 += offset;
-      Assert.That(IsAPowerOfTwo(shouldNotBeAPowerOf2), Is.True);
+      Assert.That(RandomSuppliedValuesTester.IsAPowerOfTwo(shouldNotBeAPowerOf2), Is.True);
     }
 
 
@@ -37,11 +67,11 @@ namespace Gbd.PeriodMatching.Tests
       )
     {
       long period = new SplitLong((uint)HOB, (uint)LOB).ToLong();
-      long timer = MultiplyByRandomPowerOf2NoOverflow(HOB, LOB);
+      long timer = _testedTester.MultiplyByRandomPowerOf2NoOverflow(HOB, LOB);
       long multiplier = timer / period;
 
       Assert.That(multiplier * period, Is.EqualTo(timer), "Generated timer is not a multiple of the period (integer rounding occurred)");
-      Assert.That(IsAPowerOfTwo(multiplier), Is.True);
+      Assert.That(RandomSuppliedValuesTester.IsAPowerOfTwo(multiplier), Is.True);
     }
 
 
@@ -54,14 +84,14 @@ namespace Gbd.PeriodMatching.Tests
     {
       SplitLong timer = new SplitLong((uint)timerHOB, (uint)timerLOB);
 
-      var periods = GeneratePeriodsForTimer(timer.ToLong(), nbPeriods);
-      var multipliers = periods.Select(period => period/timer.ToLong()).ToList();
+      List<long> periods = _testedTester.GeneratePeriodsForTimer(timer.ToLong(), nbPeriods);
+      List<long> multipliers = periods.Select(period => period/timer.ToLong()).ToList();
 
-      Assert.That(multipliers, Is.All.Matches(new Predicate<long>(IsAPowerOfTwo)));
+      Assert.That(multipliers, Is.All.Matches(new Predicate<long>(RandomSuppliedValuesTester.IsAPowerOfTwo)));
       
       foreach(long period in periods)
       {
-        Assert.That(IsAPowerOfTwoProduct(period, timer.ToLong()), Is.True);
+        Assert.That(RandomSuppliedValuesTester.IsAPowerOfTwoProduct(period, timer.ToLong()), Is.True);
       }
 
     }
@@ -81,20 +111,50 @@ namespace Gbd.PeriodMatching.Tests
       throw new NotImplementedException("Just check that this is executed");
     }
 
-    [Test]
+    [TestCase(1L, 0)]
+    [TestCase(1L, 1)]
+    [TestCase(1L, 61)]
+    [TestCase(1L, 62)]
+    [TestCase(1L, 63, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(1L, 64, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(127L, 0)]
+    [TestCase(127L, 1)]
+    [TestCase(127L, 55)]
+    [TestCase(127L, 56)]
+    [TestCase(127L, 57, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(127L, 63, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(127L, 64, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase((long)MaxS32, 0)]
+    [TestCase((long)MaxS32, 31)]
+    [TestCase((long)MaxS32, 32, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase((long)MaxS32+1, 0)]
+    [TestCase((long)MaxS32+1, 30)]
+    [TestCase((long)MaxS32+1, 31)]
+    [TestCase((long)MaxS32 + 1, 32, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase((long)MaxS32 + 1, 63, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(MaxS64 -1, 0)]
+    [TestCase(MaxS64 - 1, 1, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(MaxS64 - 1, 2, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(MaxS64 - 1, 63, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(MaxS64, 0)]
+    [TestCase(MaxS64, 1, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(MaxS64, 2, ExpectedException = typeof(InvalidOperationException))]
+    [TestCase(MaxS64, 63, ExpectedException = typeof(InvalidOperationException))]
     [Category("SelfTests")]
-    [Ignore("This test requires Moq")]
-    public void MultiplyByRandomPowerOfTwoOverloads(
-      long timer,
-      int injectedShiftFromRandom)
+    public void MultiplyByRandomPowerOfTwoOverloads(long timer, int injectedShiftFromRandom)
     {
-      // Mock<Random> m = new Mock<Random>();
+      Mock<Random> moqRandom = new Mock<Random>();
+      moqRandom.Setup(r => r.Next(It.IsAny<int>())).Returns(injectedShiftFromRandom);
+      //moqRandom.Verify(r => injectedShiftFromRandom, Times.Exactly(4));
+      
+      _testedTester.Rnd = moqRandom.Object;
+
 
       SplitLong splitTimer = new SplitLong(timer);
-      long resultWithRealMethod = MultiplyByRandomPowerOf2NoOverflow(splitTimer.HOB, splitTimer.LOB);
-      long resultWithOverloadLong = MultiplyByRandomPowerOf2NoOverflow(timer);
-      long resultWithOverloadSplitLong = MultiplyByRandomPowerOf2NoOverflow(splitTimer);
-      long resultWithOverload2Sint = MultiplyByRandomPowerOf2NoOverflow((int)splitTimer.HOB, (int)splitTimer.LOB);
+      long resultWithRealMethod = _testedTester.MultiplyByRandomPowerOf2NoOverflow(splitTimer.HOB, splitTimer.LOB);
+      long resultWithOverloadLong = _testedTester.MultiplyByRandomPowerOf2NoOverflow(timer);
+      long resultWithOverloadSplitLong = _testedTester.MultiplyByRandomPowerOf2NoOverflow(splitTimer);
+      long resultWithOverload2Sint = _testedTester.MultiplyByRandomPowerOf2NoOverflow((int)splitTimer.HOB, (int)splitTimer.LOB);
 
       Assert.That(resultWithOverloadLong, Is.EqualTo(resultWithRealMethod));
       Assert.That(resultWithOverloadSplitLong, Is.EqualTo(resultWithRealMethod));

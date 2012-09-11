@@ -13,14 +13,14 @@ namespace Gbd.PeriodMatching.Tests
   {
 
 
-    protected const int MaxP = AbstractPeriodMatcher.MaxPeriodsSupported;
-    protected const int MaxT = AbstractPeriodMatcher.MaxTimersSupported;
-    protected const int MaxS32 = int.MaxValue;
-    protected const uint MaxU32 = uint.MaxValue;
-    protected const int MinS32 = int.MinValue;
-    protected const long MaxS64 = long.MaxValue;
-    protected const ulong MaxU64 = ulong.MaxValue;
-    protected const long MinS64 = long.MinValue;
+    internal const int MaxP = AbstractPeriodMatcher.MaxPeriodsSupported;
+    internal const int MaxT = AbstractPeriodMatcher.MaxTimersSupported;
+    internal const int MaxS32 = int.MaxValue;
+    internal const uint MaxU32 = uint.MaxValue;
+    internal const int MinS32 = int.MinValue;
+    internal const long MaxS64 = long.MaxValue;
+    internal const ulong MaxU64 = ulong.MaxValue;
+    internal const long MinS64 = long.MinValue;
 
 
     protected PeriodMatcher Sandbox;

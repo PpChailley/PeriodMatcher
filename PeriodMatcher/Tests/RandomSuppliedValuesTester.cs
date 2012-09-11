@@ -11,12 +11,12 @@ namespace Gbd.PeriodMatching.Tests
 
 
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
-    private readonly Random _rnd = new Random(DateTime.Now.Millisecond);
+    internal Random Rnd = new Random(DateTime.Now.Millisecond);
 
 
     #region Helpers
 
-    public bool IsAPowerOfTwo(long a)
+    public static bool IsAPowerOfTwo(long a)
     {
       long currentPowerOfTwo = (long.MaxValue/2) + 1;
       Assert.That(currentPowerOfTwo, Is.EqualTo(((long) 1) << 62));
@@ -33,7 +33,7 @@ namespace Gbd.PeriodMatching.Tests
       return false;
     }
 
-    public bool IsAPowerOfTwoProduct(long product, long notPowerOfTwo)
+    public static bool IsAPowerOfTwoProduct(long product, long notPowerOfTwo)
     {
       long currentPowerOfTwo = (long.MaxValue / 2) + 1;
       Assert.That(currentPowerOfTwo, Is.EqualTo(((long)1) << 62));
@@ -51,7 +51,7 @@ namespace Gbd.PeriodMatching.Tests
     }
 
 
-    protected List<long> GeneratePeriodsForTimer(long timer, int nbPeriods)
+    protected internal List<long> GeneratePeriodsForTimer(long timer, int nbPeriods)
     {
       List<long> periods = new List<long>(nbPeriods);
 
@@ -86,7 +86,7 @@ namespace Gbd.PeriodMatching.Tests
       long maxMultiplierForNotOverflowing = (long.MaxValue/selectedTimer);
       double maxLog2ForNotOverflowing = Math.Log(maxMultiplierForNotOverflowing, 2);
       int maxShiftForNotOverflowing = (int) maxLog2ForNotOverflowing;
-      int currentShift = _rnd.Next(maxShiftForNotOverflowing);
+      int currentShift = Rnd.Next(maxShiftForNotOverflowing);
 
       //Log.Warn(String.Format("  - Max multiplier = {0:0} (0x {0:X16} )", maxMultiplierForNotOverflowing));
       //Log.Warn("  - Max Log2 = " + maxLog2ForNotOverflowing);
