@@ -69,6 +69,7 @@
     <Compile Include="Tests\InputIntegrityTester.cs" />
     <Compile Include="Tests\ManualSuppliedValuesTester.cs" />
     <Compile Include="Tests\PeriodMatcherTester.cs" />
+    <Compile Include="Tests\PeriodMatcherUnitTests.cs" />
     <Compile Include="Tests\RandomSuppliedValuesSelfTest.cs" />
     <Compile Include="Tests\RandomSuppliedValuesTester.cs" />
     <Compile Include="Tools\SplitLong.cs" />

@@ -22,8 +22,6 @@ namespace Gbd.PeriodMatching.Tests
     [TestCase(true, MaxT + 1, ExpectedException = typeof(AssertionException))]
     public void ForbiddenCasesSmokeTest(bool enableMaxTimers, int maxTimers = 0)
     {
-      Sandbox.PeriodsToMatch.Clear();
-
       if (enableMaxTimers)
       {
         Sandbox.ConstraintMaxTimers = maxTimers;
