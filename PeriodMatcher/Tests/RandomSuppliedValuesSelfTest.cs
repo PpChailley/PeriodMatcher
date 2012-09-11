@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Gbd.PeriodMatching.Tools;
 using NUnit.Framework;
 
@@ -112,7 +110,7 @@ namespace Gbd.PeriodMatching.Tests
     [Test]
     [Category("SelfTests")]
     public void SplitLongTests(
-      [Values(long.MinValue, long.MinValue + 1L, -1L, long.MaxValue - 1L, long.MaxValue)] long selectedTimer)
+      [Values(long.MinValue, long.MinValue + 1L, -1L, 0L, 1L, long.MaxValue - 1L, long.MaxValue)] long selectedTimer)
     {
       SplitLong s = new SplitLong(selectedTimer);
       long rebuilt = s.ToLong();
@@ -125,7 +123,7 @@ namespace Gbd.PeriodMatching.Tests
     // NUnit is picky with longs that have int-compatible values (looks like it auto-casts them to int32)
     // For some obscure reason, values 0 and 1 fail the test outside the test code. Better ask StackOverflow someday
     public void SplitLongTests(
-      [Values(int.MinValue, int.MinValue + 1, -1, int.MaxValue - 1, int.MaxValue)] int selectedTimer)
+      [Values(int.MinValue, int.MinValue + 1, -1, 0, 1, int.MaxValue - 1, int.MaxValue)] int selectedTimer)
     {
       SplitLong s = new SplitLong(selectedTimer);
       long rebuilt = s.ToLong();
@@ -137,7 +135,7 @@ namespace Gbd.PeriodMatching.Tests
     [Test]
     [Category("SelfTests")]
     public void SplitLongTests(
-      [Values(0, 1, ulong.MaxValue - 1, ulong.MaxValue)] ulong selectedTimer)
+      [Values(0UL, 1UL, ulong.MaxValue - 1, ulong.MaxValue)] ulong selectedTimer)
     {
       SplitLong s = new SplitLong(selectedTimer);
       Assert.That(s.ToULong(), Is.EqualTo(selectedTimer));
