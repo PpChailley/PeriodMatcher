@@ -9,37 +9,6 @@ namespace Gbd.PeriodMatching.Tests
   public class RandomValuesTester //: PeriodMatcherTester
   {
 
-    public class SplitLong
-    {
-      public uint HOB;
-      public uint LOB;
-
-      public SplitLong(long value)
-      {
-        LOB = (uint)(value & uint.MaxValue);
-        HOB = (uint) (value >> 32);
-      }
-
-      public SplitLong(ulong value)
-      {
-        LOB = (uint)(value & uint.MaxValue);
-        HOB = (uint)(value >> 32);
-      }
-
-      public long ToLong()
-      {
-        return (HOB << 32) | LOB;
-      }
-
-      public ulong ToULong()
-      {
-        return (HOB << 32) | LOB;
-      }
-    }
-
-
-    private static readonly Logger Log = LogManager.GetCurrentClassLogger();
-    private readonly Random _rnd = new Random(DateTime.Now.Millisecond);
 
 
     private List<long> GeneratePeriodsForTimer(ICollection<long> timers, int nbPeriods)
@@ -129,3 +98,128 @@ namespace Gbd.PeriodMatching.Tests
 
 
 }
+
+
+
+
+
+
+
+
+----------------------
+
+
+
+    [TestCase(null, 0)]
+    private List<long> GeneratePeriodsForTimer(ICollection<long> timers, int nbPeriods)
+    {
+      throw new NotImplementedException();
+    }
+
+    //[Test]
+    //[Category("SelfTests")]
+    public long MultiplyByRandomPowerOf2NoOverflow(
+      [Values(0, int.MaxValue, 99999999)]            int selectedTimerHOB,
+      [Values(0, int.MaxValue, 99999998)]            int selectedTimerLOB
+      )
+    {
+      //return MultiplyByRandomPowerOf2NoOverflow((uint) selectedTimerHOB, (uint) selectedTimerLOB);
+      throw new NotImplementedException();
+    }
+
+    public long MultiplyByRandomPowerOf2NoOverflow(long selectedTimer)
+    {
+      //SplitLong split = new SplitLong(selectedTimer);
+      //return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
+            throw new NotImplementedException();
+
+    }
+    public long MultiplyByRandomPowerOf2NoOverflow(SplitLong selectedTimer)
+    {
+      //return MultiplyByRandomPowerOf2NoOverflow(selectedTimer.HOB, selectedTimer.LOB);
+            throw new NotImplementedException();
+
+    }
+
+    //[Test]
+    //[Category("SelfTests")]
+    //[Ignore]
+    public long MultiplyByRandomPowerOf2NoOverflow(
+      [Range(0, int.MaxValue, 131)]            uint selectedTimerHOB,
+      [Range(0, int.MaxValue, 941)]            uint selectedTimerLOB
+      )
+    {
+      throw new NotImplementedException();
+    }
+
+
+----------------
+
+
+
+    private List<long> GeneratePeriodsForTimer(ICollection<long> timers, int nbPeriods)
+    {
+      throw new NotImplementedException();
+    }
+
+
+    //[Test]
+    //public void MultiplyByRandomvalueSelfTest(
+    //  [Values(0, int.MaxValue, 99999999)]            int HOB,
+    //  [Values(0, int.MaxValue, 99999998)]            int LOB
+    //  )
+    //{
+
+    //  long period = new SplitLong((uint) HOB, (uint) LOB).ToLong();
+    //  long timer = MultiplyByRandomPowerOf2NoOverflow(HOB, LOB);
+    //  long multiplier = timer/period;
+      
+    //  Assert.That(multiplier*period, Is.EqualTo(timer), "Generated timer is not a multiple of the period (integer rounding occurred)");
+    //  Assert.That(multiplier, );
+
+    //  long currentPowerOf2 = 1;
+
+
+    //  while ()
+    //  {
+    //    long divisionResult = timer/period;
+        
+    //  }
+
+    //  Assert.That(matchesAPowerOf2, Is.True);
+
+    //}
+
+    public long MultiplyByRandomPowerOf2NoOverflow(
+      [Values(0, int.MaxValue, 99999999)]            int selectedTimerHOB,
+      [Values(0, int.MaxValue, 99999998)]            int selectedTimerLOB
+      )
+    {
+      //return MultiplyByRandomPowerOf2NoOverflow((uint) selectedTimerHOB, (uint) selectedTimerLOB);
+      throw new NotImplementedException();
+    }
+
+    public long MultiplyByRandomPowerOf2NoOverflow(long selectedTimer)
+    {
+      //SplitLong split = new SplitLong(selectedTimer);
+      //return MultiplyByRandomPowerOf2NoOverflow(split.HOB, split.LOB);
+      throw new NotImplementedException();
+
+    }
+    public long MultiplyByRandomPowerOf2NoOverflow(SplitLong selectedTimer)
+    {
+      //return MultiplyByRandomPowerOf2NoOverflow(selectedTimer.HOB, selectedTimer.LOB);
+      throw new NotImplementedException();
+
+    }
+
+    //[Test]
+    //[Category("SelfTests")]
+    //[Ignore]
+    public long MultiplyByRandomPowerOf2NoOverflow(
+      [Range(0, int.MaxValue, 131)]            uint selectedTimerHOB,
+      [Range(0, int.MaxValue, 941)]            uint selectedTimerLOB
+      )
+    {
+      throw new NotImplementedException();
+    }
