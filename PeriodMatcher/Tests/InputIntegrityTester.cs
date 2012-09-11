@@ -10,7 +10,7 @@ namespace Gbd.PeriodMatching.Tests
 
 
 
-    #region Smoke Tests & Functional Tests
+    #region Smoke Tests 
 
 
 
@@ -66,8 +66,7 @@ namespace Gbd.PeriodMatching.Tests
 
     #endregion
 
-    #region Robustness and limits
-
+    #region Limit tests
 
     [Test]
     [ExpectedException(typeof(AssertionException))]
