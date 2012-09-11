@@ -83,6 +83,27 @@ namespace Gbd.PeriodMatching.Tests
       throw new NotImplementedException("Just check that this is executed");
     }
 
+    [Test]
+    [Category("SelfTests")]
+    [Ignore("This test requires Moq")]
+    public void MultiplyByRandomPowerOfTwoOverloads(
+      long timer,
+      int injectedShiftFromRandom)
+    {
+      // Mock<Random> m = new Mock<Random>();
+
+      SplitLong splitTimer = new SplitLong(timer);
+      long resultWithRealMethod = MultiplyByRandomPowerOf2NoOverflow(splitTimer.HOB, splitTimer.LOB);
+      long resultWithOverloadLong = MultiplyByRandomPowerOf2NoOverflow(timer);
+      long resultWithOverloadSplitLong = MultiplyByRandomPowerOf2NoOverflow(splitTimer);
+      long resultWithOverload2Sint = MultiplyByRandomPowerOf2NoOverflow((int)splitTimer.HOB, (int)splitTimer.LOB);
+
+      Assert.That(resultWithOverloadLong, Is.EqualTo(resultWithRealMethod));
+      Assert.That(resultWithOverloadSplitLong, Is.EqualTo(resultWithRealMethod));
+      Assert.That(resultWithOverload2Sint, Is.EqualTo(resultWithRealMethod));
+
+    }
+
 
     #endregion
 
