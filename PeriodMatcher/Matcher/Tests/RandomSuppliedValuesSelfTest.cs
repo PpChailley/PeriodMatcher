@@ -45,7 +45,7 @@ namespace Gbd.PeriodMatching.Tests
       [Range(0, 62, 1)]         int power)
     {
       long shouldBeAPowerOf2 = ((long)1) << power;
-      Assert.That(RandomSuppliedValuesTester.IsAPowerOfTwo(shouldBeAPowerOf2), Is.True);
+      Assert.That(PowerOfTwoMath.IsAPowerOfTwo(shouldBeAPowerOf2), Is.True);
     }
 
     [Test]
@@ -56,7 +56,7 @@ namespace Gbd.PeriodMatching.Tests
     {
       long shouldNotBeAPowerOf2 = ((long)1) << power;
       shouldNotBeAPowerOf2 += offset;
-      Assert.That(RandomSuppliedValuesTester.IsAPowerOfTwo(shouldNotBeAPowerOf2), Is.True);
+      Assert.That(PowerOfTwoMath.IsAPowerOfTwo(shouldNotBeAPowerOf2), Is.True);
     }
 
 
@@ -71,7 +71,7 @@ namespace Gbd.PeriodMatching.Tests
       long multiplier = timer / period;
 
       Assert.That(multiplier * period, Is.EqualTo(timer), "Generated timer is not a multiple of the period (integer rounding occurred)");
-      Assert.That(RandomSuppliedValuesTester.IsAPowerOfTwo(multiplier), Is.True);
+      Assert.That(PowerOfTwoMath.IsAPowerOfTwo(multiplier), Is.True);
     }
 
 
@@ -87,11 +87,11 @@ namespace Gbd.PeriodMatching.Tests
       List<long> periods = _testedTester.GeneratePeriodsForTimer(timer.ToLong(), nbPeriods);
       List<long> multipliers = periods.Select(period => period/timer.ToLong()).ToList();
 
-      Assert.That(multipliers, Is.All.Matches(new Predicate<long>(RandomSuppliedValuesTester.IsAPowerOfTwo)));
+      Assert.That(multipliers, Is.All.Matches(new Predicate<long>(PowerOfTwoMath.IsAPowerOfTwo)));
       
       foreach(long period in periods)
       {
-        Assert.That(RandomSuppliedValuesTester.IsAPowerOfTwoProduct(period, timer.ToLong()), Is.True);
+        Assert.That(PowerOfTwoMath.IsAPowerOfTwoProduct(period, timer.ToLong()), Is.True);
       }
 
     }

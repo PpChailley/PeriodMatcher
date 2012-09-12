@@ -11,6 +11,7 @@ namespace Gbd.PeriodMatching.Matcher
   public abstract class AbstractPeriodMatcher
   {
 
+
     private static Logger Log = LogManager.GetCurrentClassLogger();    
     
     public const int MaxTimersSupported = 100;
@@ -39,7 +40,6 @@ namespace Gbd.PeriodMatching.Matcher
 
     protected int _constraintMaxTimers = 0;
     protected bool _constraintEnableTimers = false;
-
     public int ConstraintMaxTimers
     {
       set
@@ -52,7 +52,6 @@ namespace Gbd.PeriodMatching.Matcher
 
 
     protected ICollection<long> _periodsToMatch = null;
-
     public ICollection<long> PeriodsToMatch
     {
       set { _periodsToMatch = value; }
@@ -63,9 +62,9 @@ namespace Gbd.PeriodMatching.Matcher
       }
     }
 
+
     protected bool _timersAssignmentDone = false;
     protected List<long> _timersAssignment;
-
     public List<long> TimersAssignment
     {
       get
@@ -79,7 +78,6 @@ namespace Gbd.PeriodMatching.Matcher
 
 
     private int _constraintMaxMultiplier = 0;
-
     public int ConstraintMaxMultiplier
     {
       get { return _constraintMaxMultiplier; }
@@ -89,6 +87,35 @@ namespace Gbd.PeriodMatching.Matcher
         _timersAssignmentDone = false;
       }
     }
+
+
+    public enum MatchingMethod
+    {
+      PowerOf2,
+      AnyMultiple,
+      MatchesAll
+    }
+    private MatchingMethod _matchingMethod = MatchingMethod.PowerOf2;
+    public MatchingMethod Method
+    {
+      get { return _matchingMethod; }
+      set
+      {
+        switch(value)
+        {
+          case MatchingMethod.PowerOf2:
+            _matchingMethod = MatchingMethod.PowerOf2;
+            break;
+
+          case MatchingMethod.AnyMultiple:
+          case MatchingMethod.MatchesAll:
+          default:
+            throw new NotImplementedException("Thi matching method is currently not implemented: " + value);
+
+        }
+      }
+    }
+
 
 
   }

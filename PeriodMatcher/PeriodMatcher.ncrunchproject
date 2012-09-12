@@ -18,16 +18,7 @@
   <UseCPUArchitecture>AutoDetect</UseCPUArchitecture>
   <IgnoredTests>
     <RegexTestSelector>
-      <RegularExpression>Gbd\.PeriodMatching\.Tests\.RandomSuppliedValuesTester\..*</RegularExpression>
-    </RegexTestSelector>
-    <RegexTestSelector>
-      <RegularExpression>Gbd\.PeriodMatching\.Tests\.ManualSuppliedValuesTester\..*</RegularExpression>
-    </RegexTestSelector>
-    <RegexTestSelector>
-      <RegularExpression>Gbd\.PeriodMatching\.Tests\.InputIntegrityTester\..*</RegularExpression>
-    </RegexTestSelector>
-    <RegexTestSelector>
-      <RegularExpression>Gbd\.PeriodMatching\.Tests\.RandomSuppliedValuesSelfTest\..*</RegularExpression>
+      <RegularExpression>Gbd\.PeriodMatching\.Tests\.ToolsSelfTests\..*</RegularExpression>
     </RegexTestSelector>
   </IgnoredTests>
 </ProjectConfiguration>

@@ -64,17 +64,21 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="Matcher\AbstractPeriodMatcher.cs" />
+    <Compile Include="Matcher\Period.cs" />
     <Compile Include="Matcher\PeriodMatcher.cs" />
+    <Compile Include="Matcher\Timer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tests\InputIntegrityTester.cs" />
-    <Compile Include="Tests\ManualSuppliedValuesTester.cs" />
-    <Compile Include="Tests\PeriodMatcherTester.cs" />
-    <Compile Include="Tests\PeriodMatcherUnitTests.cs" />
-    <Compile Include="Tests\RandomSuppliedValuesSelfTest.cs" />
-    <Compile Include="Tests\RandomSuppliedValuesTester.cs" />
-    <Compile Include="Tests\ToolsSelfTests.cs" />
+    <Compile Include="Matcher\Tests\InputIntegrityTester.cs" />
+    <Compile Include="Matcher\Tests\ManualSuppliedValuesTester.cs" />
+    <Compile Include="Matcher\Tests\PeriodMatcherTester.cs" />
+    <Compile Include="Matcher\Tests\PeriodMatcherUnitTests.cs" />
+    <Compile Include="Matcher\Tests\RandomSuppliedValuesSelfTest.cs" />
+    <Compile Include="Matcher\Tests\RandomSuppliedValuesTester.cs" />
+    <Compile Include="Matcher\Tests\ToolsSelfTests.cs" />
+    <Compile Include="Tools\PowerOfTwoMath.cs" />
     <Compile Include="Tools\RandomExtensions.cs" />
     <Compile Include="Tools\SplitLong.cs" />
+    <Compile Include="Tools\Tests\PowerOfTwoMathTester.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

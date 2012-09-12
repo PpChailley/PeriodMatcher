@@ -16,40 +16,6 @@ namespace Gbd.PeriodMatching.Tests
 
     #region Helpers
 
-    public static bool IsAPowerOfTwo(long a)
-    {
-      long currentPowerOfTwo = (long.MaxValue/2) + 1;
-      Assert.That(currentPowerOfTwo, Is.EqualTo(((long) 1) << 62));
-
-      while(currentPowerOfTwo > 0)
-      {
-        if (a == currentPowerOfTwo)
-          return true;
-
-        currentPowerOfTwo = currentPowerOfTwo / 2;
-      }
-
-      //Log.Info(String.Format("Provided number is not a power of 2: {0:0} (0x{0:X16})", a));
-      return false;
-    }
-
-    public static bool IsAPowerOfTwoProduct(long product, long notPowerOfTwo)
-    {
-      long currentPowerOfTwo = (long.MaxValue / 2) + 1;
-      Assert.That(currentPowerOfTwo, Is.EqualTo(((long)1) << 62));
-
-      while (currentPowerOfTwo > 0)
-      {
-        if (product == (currentPowerOfTwo*notPowerOfTwo))
-          return true;
-
-        currentPowerOfTwo = currentPowerOfTwo / 2;
-      }
-
-      //Log.Info(String.Format("Provided number is not a power of 2: {0:0} (0x{0:X16})", a));
-      return false;
-    }
-
 
     protected internal List<long> GeneratePeriodsForTimer(long timer, int nbPeriods)
     {
@@ -132,7 +98,7 @@ namespace Gbd.PeriodMatching.Tests
       Assert.That(Sandbox.TimersAssignment.Count, Is.EqualTo(1));
       foreach (long period in Sandbox.TimersAssignment)
       {
-        Assert.That(IsAPowerOfTwoProduct(period, timer));
+        Assert.That(PowerOfTwoMath.IsAPowerOfTwoProduct(period, timer));
       }
     }
 
@@ -160,7 +126,5 @@ namespace Gbd.PeriodMatching.Tests
 
       throw new NotImplementedException();
     }
-
-
   }
 }
