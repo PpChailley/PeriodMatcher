@@ -10,3 +10,4 @@ PeriodMatcher.csproj.FileListAbsolute.txt
 Debug
 *.log
 *.user
+_ReSharper.PeriodMatcher
