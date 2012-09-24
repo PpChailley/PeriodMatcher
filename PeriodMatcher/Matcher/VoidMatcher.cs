@@ -5,9 +5,11 @@ using System.Text;
 
 namespace Gbd.PeriodMatching.Matcher
 {
-  internal class Timer
+  public class VoidMatcher : AbstractPeriodMatcher, IPeriodMatcher
   {
-    public long T;
-
+    public override void Assign()
+    {
+      return;
+    }
   }
 }

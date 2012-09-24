@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Gbd.PeriodMatching.Matcher
 {
-  public class PeriodMatcher: AbstractPeriodMatcher
+  public class PeriodMatcher: AbstractPeriodMatcher, IPeriodMatcher
   {
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 

@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Gbd.PeriodMatching.Tools;
 
 namespace Gbd.PeriodMatching.Matcher
 {
   internal class Period
   {
     public long P;
-    private readonly PeriodMatcher _matcher;
+    private readonly AbstractPeriodMatcher _matcher;
 
-    public Period(PeriodMatcher matcher)
+
+    public Period(AbstractPeriodMatcher matcher)
     {
       _matcher = matcher;
     }

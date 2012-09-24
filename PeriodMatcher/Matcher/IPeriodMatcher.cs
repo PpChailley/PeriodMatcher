@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
 
 namespace Gbd.PeriodMatching.Matcher
 {
-  internal class Timer
+  public interface IPeriodMatcher
   {
-    public long T;
+
+    void Assign();
+
+
 
   }
 }
