@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NLog;
 using NUnit.Framework;
 
@@ -15,6 +16,10 @@ namespace Gbd.PeriodMatching.Matcher
 
       _timersAssignment = new List<long>(_periodsToMatch.Count);
 
+
+
+
+      throw new NotImplementedException();
 
       _timersAssignmentDone = true;
     }

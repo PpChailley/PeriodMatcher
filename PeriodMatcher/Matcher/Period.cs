@@ -2,7 +2,7 @@
 
 namespace Gbd.PeriodMatching.Matcher
 {
-  internal class Period
+  internal class Period: IComparable
   {
     public long P;
     private readonly AbstractPeriodMatcher _matcher;
@@ -36,5 +36,9 @@ namespace Gbd.PeriodMatching.Matcher
     }
 
 
+    public int CompareTo(object obj)
+    {
+      throw new NotImplementedException();
+    }
   }
 }
